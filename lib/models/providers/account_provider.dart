@@ -6,12 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:expense_tracker_dvm/globals.dart' as globals;
 
 class AccountProvider extends ChangeNotifier {
-  final database;
   Account user_account = Account();
   // constructor
-  AccountProvider({required this.database}) {
-    user_account.readIntoList(database);
-  }
+  AccountProvider();
 
   List<Widget> acct_HistoryCards = <Widget>[];
   String _filter = "All";
@@ -64,7 +61,6 @@ class AccountProvider extends ChangeNotifier {
     _filter = "All";
     calcMonthlyIncome();
     calculateBalance();
-    user_account.insertPayment(p, database);
     notifyListeners();
   }
 
