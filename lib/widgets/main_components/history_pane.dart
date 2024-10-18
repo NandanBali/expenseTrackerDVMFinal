@@ -37,26 +37,23 @@ class _HistoryPaneState extends State<HistoryPane> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      const Align(
+                      Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Recent Transactions",
-                          style: TextStyle(
-                              fontFamily: "GSans",
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w400),
+                          style: GoogleFonts.ibmPlexMono(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400
+                          ),
                         ),
                       ),
                       OutlinedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
                           },
-                          child: Row(
+                          child: const Row(
                             children: <Widget>[
-                              const Icon(Icons.info_outline),
-                              const SizedBox(width: 8.0),
-                              Text("All Payments...",
-                                  style: GoogleFonts.ibmPlexSans(fontSize: 24.0)),
+                              Icon(Icons.info_outline),
                             ],
                           )),
                     ],

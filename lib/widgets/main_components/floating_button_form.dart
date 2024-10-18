@@ -4,6 +4,7 @@ import 'package:expense_tracker_dvm/globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_tracker_dvm/models/app_models/payment.dart';
+import 'dart:math';
 
 class FloatingButton extends StatefulWidget {
   const FloatingButton({super.key});
@@ -32,13 +33,15 @@ class _FloatingButtonState extends State<FloatingButton> {
     if (_paymentTypeController.text == "Debit") {
       amount *= -1;
     }
+    var rng = Random();
     return Payment(
-        amount,
-        _controllerDescription.text.isEmpty
+        id: rng.nextInt(1000000),
+        amount: amount,
+        description: _controllerDescription.text.isEmpty
             ? ''
             : _controllerDescription.text,
-        _controllerCategory.text,
-        DateTime.now());
+        category: _controllerCategory.text,
+        payment_time: DateTime.now());
   }
 
   void _showAlertDialog(BuildContext bctx) {

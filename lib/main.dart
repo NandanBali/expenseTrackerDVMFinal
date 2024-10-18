@@ -4,11 +4,22 @@ import 'package:expense_tracker_dvm/widgets/main_components/history_pane.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expense_tracker_dvm/globals.dart' as globals;
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_tracker_dvm/widgets/main_components/floating_button_form.dart';
+import 'package:sqflite/sqflite.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(create: (context) => AccountProvider(), child: const MainApp(),));
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'payments.db'),
+    onCreate: (db, version) {
+      return db.execute("CREATE TABLE payments(id INTEGER PRIMARY KEY, amount REAL, category TEXT, description TEXT, time TEXT)");
+    },
+    version: 1,
+  );
+  runApp(ChangeNotifierProvider(create: (context) => AccountProvider(database: database), child: const MainApp(),));
 }
 
 class MainApp extends StatefulWidget {
